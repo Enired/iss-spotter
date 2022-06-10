@@ -58,21 +58,21 @@ const getISS = (coords, cb) => {
 
 const getNextISSTimeAtLocation = (cb) =>{
   getMyIP((err, ip) => {
-    if(err){
-      return cb(error);
+    if (err) {
+      return cb(err);
     }
     getCoordsByIP(ip, (err, coords) => {
-      if(err){
-        return cb(error);
+      if (err) {
+        return cb(err);
       }
       getISS(coords, (err, times) => {
-        if(err){
-          return cb(err)
+        if (err) {
+          return cb(err);
         }
-        return cb(null,times)
-      })
-    })
-  })
+        return cb(null,times);
+      });
+    });
+  });
 };
 
 module.exports = {getMyIP, getCoordsByIP, getISS, getNextISSTimeAtLocation};
