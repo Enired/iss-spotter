@@ -19,4 +19,19 @@ const getMyIP = (cb) =>{
   });
 };
 
-module.exports = {getMyIP};
+const getCoordsByIP = (ip, cb) => {
+  request(`https://api.ipbase.com/v2/info?apikey=FjeV3vnhvcsNbWfjBp2FgyFrtBBjXyvTl9uX1xUb&language=en&ip=174.7.230.78`, (err, resp, body) => {
+    
+    if(err){
+      cb(err);
+    }
+
+    let lat = JSON.parse(body).data.location.latitude
+    let long = JSON.parse(body).data.location.longitude
+    coords = {lat,long}
+    cb(null, coords)
+
+  })
+}
+
+module.exports = {getMyIP, getCoordsByIP};
