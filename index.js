@@ -9,11 +9,11 @@ const {getMyIP, getCoordsByIP} = require('./iss');
 //   }
 // })
 
-getCoordsByIP('errr', (err, data) =>{
-  if(err){
-  return console.log(err);
-  }
+// getCoordsByIP('errr', (err, data) =>{
+//   if(err){
+//   return console.log(err);
+//   }
 
-  console.log(data)
+//   console.log(data)
 
-})
+// })

@@ -21,21 +21,21 @@ const getMyIP = (cb) =>{
 
 const getCoordsByIP = (ip, cb) => {
   request(`https://api.ipbase.com/v1/json/${ip}`, (err, resp, body) => {
-    if(err){
+    if (err) {
       return cb(err);
     }
 
-    if(resp.statusCode !== 200){
-      err = `Error: ${JSON.parse(body).message}`
-      return cb(err)
+    if (resp.statusCode !== 200) {
+      err = `Error: ${JSON.parse(body).message}`;
+      return cb(err);
     }
 
-    let lat = JSON.parse(body).latitude
-    let long = JSON.parse(body).longitude
-    coords = {lat,long}
-    cb(null, coords)
+    const lat = JSON.parse(body).latitude;
+    const long = JSON.parse(body).longitude;
+    const coords = {lat,long};
+    cb(null, coords);
 
-  })
-}
+  });
+};
 
 module.exports = {getMyIP, getCoordsByIP};
