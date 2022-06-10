@@ -20,14 +20,18 @@ const getMyIP = (cb) =>{
 };
 
 const getCoordsByIP = (ip, cb) => {
-  request(`https://api.ipbase.com/v2/info?apikey=FjeV3vnhvcsNbWfjBp2FgyFrtBBjXyvTl9uX1xUb&language=en&ip=174.7.230.78`, (err, resp, body) => {
-    
+  request(`https://api.ipbase.com/v1/json/${ip}`, (err, resp, body) => {
     if(err){
-      cb(err);
+      return cb(err);
     }
 
-    let lat = JSON.parse(body).data.location.latitude
-    let long = JSON.parse(body).data.location.longitude
+    if(resp.statusCode !== 200){
+      err = `Error: ${JSON.parse(body).message}`
+      return cb(err)
+    }
+
+    let lat = JSON.parse(body).latitude
+    let long = JSON.parse(body).longitude
     coords = {lat,long}
     cb(null, coords)
 
