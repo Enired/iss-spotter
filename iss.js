@@ -38,4 +38,41 @@ const getCoordsByIP = (ip, cb) => {
   });
 };
 
-module.exports = {getMyIP, getCoordsByIP};
+const getISS = (coords, cb) => {
+  request(`https://iss-pass.herokuapp.com/json/?lat=${coords.lat}&lon=${coords.long}`, (err, resp, body) =>{
+    if (err) {
+      return cb(err);
+    }
+
+    if (resp.statusCode !== 200) {
+      err = `Error`;
+      return cb(err);
+    }
+
+    const data = JSON.parse(body);
+    return cb(null,data.response);
+
+  });
+};
+
+
+const getNextISSTimeAtLocation = (cb) =>{
+  getMyIP((err, ip) => {
+    if(err){
+      return cb(error);
+    }
+    getCoordsByIP(ip, (err, coords) => {
+      if(err){
+        return cb(error);
+      }
+      getISS(coords, (err, times) => {
+        if(err){
+          return cb(err)
+        }
+        return cb(null,times)
+      })
+    })
+  })
+};
+
+module.exports = {getMyIP, getCoordsByIP, getISS, getNextISSTimeAtLocation};
